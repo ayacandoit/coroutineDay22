@@ -1,0 +1,20 @@
+
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.take
+
+fun getEvenNumbers() = flow<Int> {
+    for (i in 2..40 step 2) {
+        delay(1000)
+        emit(i)
+    }
+}
+
+suspend fun main() = coroutineScope {
+    getEvenNumbers()
+        .take(10)
+        .collect {
+            println(it)
+        }
+}
